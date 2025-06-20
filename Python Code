@@ -1,0 +1,52 @@
+class Solution:
+    def minCut(self, s: str) -> int:
+        if not s or len(s) <= 1:
+            return 0
+        n = len(s)
+       cuts = list(range(n))
+        is_pal = [[False] * n for _ in range(n)]
+        for i in range(n):
+    
+            for j in range(i + 1):
+      
+                if s[j] == s[i] and (i - j < 2 or is_pal[j + 1][i - 1]):
+                   
+                    is_pal[j][i] = True
+                  
+                    if j == 0:
+                    
+                        cuts[i] = 0
+                    else:
+                        cuts[i] = min(cuts[i], 1 + cuts[j - 1])
+    
+        return cuts[n - 1]
+if __name__ == "__main__":
+    solver = Solution()
+
+    s1 = "aab"
+    print(f'Input: "{s1}"')
+    print(f'Minimum cuts: {solver.minCut(s1)}') 
+    print("-" * 20)
+    s2 = "a"
+    print(f'Input: "{s2}"')
+    print(f'Minimum cuts: {solver.minCut(s2)}') 
+    print("-" * 20)
+    s3 = "ab"
+    print(f'Input: "{s3}"')
+    print(f'Minimum cuts: {solver.minCut(s3)}') 
+    print("-" * 20)
+    
+    s4 = "abacaba"
+    print(f'Input: "{s4}"')
+    print(f'Minimum cuts: {solver.minCut(s4)}') 
+    print("-" * 20)
+    
+    s5 = "ababbbabbababa"
+    print(f'Input: "{s5}"')
+    print(f'Minimum cuts: {solver.minCut(s5)}') 
+    print("-" * 20)
+    
+    s6 = "abcdefg"
+    print(f'Input: "{s6}"')
+    print(f'Minimum cuts: {solver.minCut(s6)}')
+    print("-" * 20)
